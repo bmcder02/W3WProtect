@@ -1,9 +1,0 @@
-﻿  Building 'w3wprotect' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
-  Stamping Debug\w3wprotect.inf
-  Stamping [Version] section with DriverVer=09/23/2021,14.23.11.0
-D:\driverSamples\w3wprotect\w3wprotect\w3wprotect.inf(8-8): warning 1324: [Version] section should specify PnpLockdown=1.
-D:\driverSamples\w3wprotect\w3wprotect\w3wprotect.inf(63-63): warning 1205: Section [w3wprotect.DriverFiles] referenced from DelFiles and CopyFiles directive.
-protect.obj : error LNK2019: unresolved external symbol _FltRegisterFilter@12 referenced in function _DriverEntry@8
-protect.obj : error LNK2019: unresolved external symbol _FltUnregisterFilter@4 referenced in function _ProtectUnload@4
-protect.obj : error LNK2019: unresolved external symbol _FltStartFiltering@4 referenced in function _DriverEntry@8
-D:\driverSamples\w3wprotect\Debug\w3wprotect.sys : fatal error LNK1120: 3 unresolved externals
