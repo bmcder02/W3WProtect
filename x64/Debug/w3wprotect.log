@@ -1,0 +1,25 @@
+﻿  Building 'w3wprotect' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Debug\w3wprotect.inf
+  Stamping [Version] section with DriverVer=11/01/2021,14.16.8.6
+D:\driverSamples\w3wprotect\w3wprotect\w3wprotect.inf(8-8): warning 1324: [Version] section should specify PnpLockdown=1.
+D:\driverSamples\w3wprotect\w3wprotect\w3wprotect.inf(67-67): warning 1205: Section [w3wprotect.DriverFiles] referenced from DelFiles and CopyFiles directive.
+  protect.c
+  w3wprotect.vcxproj -> D:\driverSamples\w3wprotect\x64\Debug\w3wprotect.sys
+  Done Adding Additional Store
+  Successfully signed: D:\driverSamples\w3wprotect\x64\Debug\w3wprotect.sys
+  
+  Driver is 'Universal'.
+  .........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  D:\driverSamples\w3wprotect\x64\Debug\w3wprotect\w3wprotect.cat
+  Done Adding Additional Store
+  Successfully signed: D:\driverSamples\w3wprotect\x64\Debug\w3wprotect\w3wprotect.cat
+  

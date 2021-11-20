@@ -1,0 +1,89 @@
+;-------------------------------------------------------------------------
+; w3wprotect.INF -- NDIS LightWeight Filter Driver
+;
+; TODO: Search for comments marked "TODO:", and follow their instructions to
+; customize this INF for your driver.  Then delete the "TODO:" comments.
+;-------------------------------------------------------------------------
+
+[version]
+Signature       = "$Windows NT$"
+Class           = "ActivityMonitor"
+ClassGUID       = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
+Provider        = %Manufacturer%
+DriverVer       = 22/09/2021,1.0.0.0
+CatalogFile     = w3wprotect.cat
+
+;-------------------------------------------------------------------------
+; Installation Section
+;-------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir			= 10
+w3wprotect.DriverFiles	= 10
+
+
+[DefaultInstall.NTamd64]
+OptionDesc				= %ServiceDescription%
+Copyfiles				= w3wprotect.DriverFiles
+
+[DefaultInstall.NTamd64.Services]
+AddService				= %Name%,,w3wprotect.Service
+
+;-------------------------------------------------------------------------
+; Uninstallation Section
+;-------------------------------------------------------------------------
+[DefaultUninstall.NTamd64]
+LegacyUninstall			= 1
+DelFiles				= w3wprotect.DriverFiles
+
+[DefaultUninstall.NTamd64.Services]
+DelService				= %Name%,0x200 ; Ensure the service is stopped before deleting.
+
+;-------------------------------------------------------------------------
+; Service installation 
+;-------------------------------------------------------------------------
+
+[w3wprotect.Service]
+DisplayName     = %Name%
+Description		= &Service
+ServiceBinary   = %24%\%Name%.sys
+ServiceType     = 2 ;SERVICE_FILE_SYSTEM_DRIVER
+StartType       = 3 ;SERVICE_DEMAND_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+LoadOrderGroup  = "FSFilter Activity Monitor"
+AddReg          = w3wprotect.AddRegistry
+
+
+[w3wprotect.AddRegistry]
+HKR, , "DebugFlags", 0x00010001, 0x0
+HKR, , "SupportedFeatures", 0x00010001, 0x3
+
+HKR, "", "Altitude", 0x00000000, %Altitude%
+HKR, "", "Flags", 0x00010001, %Flags%
+HKR, "", "WhiteListedDirectories", 0x00000000, %DefaultDirectories%
+HKR, "", "WhiteListedProcesses", 0x00000000, %DefaultProcesses%
+HKR, "", "WhiteListedRegistry", 0x00000000, %DefaultRegistry%
+HKR, "", "Enforced", 0x00010001, %Enforced%
+
+[w3wprotect.DriverFiles]
+%Name%.sys
+
+[SourceDisksFiles]
+w3wprotect.sys = 1,,
+
+[SourceDisksNames]
+1 = %DiskId%,,,
+
+[Strings]
+Name					= "w3wprotect"
+Manufacturer			= "DriverSamples"
+ServiceDescription		= "w3wprotect service"
+DiskId					= "w3wprotect Device Installation Disk"
+ServiceHelpText			= "w3wprotect"
+
+DefaultConfig			= "DefaultConfig"
+Altitude				= "384477"
+Flags					= 0x0
+DefaultDirectories		= "C:\\Windows\\;C:\\Windows\\System32\\;"
+DefaultProcesses		= "csc;vbc;conhost;wermgr;Microsoft.NET\Framework64;"
+DefaultRegistry			= "w3wprotect;Services\ASP.NET;MuiCache;"
+Enforced				= 0x1

@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes'?>
+<instrumentationManifest
+    xmlns="http://schemas.microsoft.com/win/2004/08/events"
+    xmlns:win="http://manifests.microsoft.com/win/2004/08/windows/events"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    >
+	<instrumentation>
+		<events>
+			<provider name="W3WProtect"
+				guid="{c4b1b7f8-0093-4c96-9444-3eca5bb6174e}"
+				messageFileName="%SystemDrive%\Windows\w3wprotect.sys"
+				resourceFileName="%SystemDrive%\Windows\w3wprotect.sys"
+				symbol="W3WProtect"
+				message="$(string.Name)"
+          >
+				<channels>
+					<channel
+						chid="w3wprotect"
+						name="w3wprotect"
+						symbol="w3wprotect"
+						type="Operational"
+				/>
+				</channels>
+				<tasks>
+					<task
+						name="Enforce"
+						value="10"
+						symbol="TASK_W3WPROTECT_ENFORCE"
+				/>
+					<task
+						name="Passive"
+						value="11"
+						symbol="TASK_W3WPROTECT_PASSIVE"
+				/>
+				</tasks>
+				<templates>
+					<template tid="tid_Process_Block">
+						<data
+							inType="win:UInt32"
+							name="ProcessId"
+                />
+						<data
+							inType="win:UnicodeString"
+							name="ProcessName"
+                />
+						<data
+							inType="win:UInt32"
+							name="ParentProcessId"
+                />
+						<data
+							inType="win:UnicodeString"
+							name="CommandLine"
+				/>				
+					</template>
+					<template tid="tid_File_Block">
+						<data
+							inType="win:UInt32"
+							name="ProcessId"
+                />
+						<data
+							inType="win:UnicodeString"
+							name="Filename"
+				/>
+						<data
+							inType="win:UnicodeString"
+							name="ParentDirectory"
+				/>
+					</template>
+					<template tid="tid_Reg_Block">
+						<data
+							inType="win:UnicodeString"
+							name="RegistryValue"
+				/>						
+					</template>
+				</templates>
+				<events>
+					<event
+						value="1001"
+						symbol="ProcessCreationBlock_Enforced"
+						version="1"
+						task="Enforce"
+						level="win:Warning"
+						
+						message="$(string.ProcessCreationBlocked.Enforced)"
+						template="tid_Process_Block"
+						channel="w3wprotect"
+						
+              />
+					<event
+						value="1002"
+						symbol="ProcessCreationBlock_Passive"
+						version="1"
+						task="Passive"
+						level="win:Warning"
+						
+						message="$(string.ProcessCreationBlocked.Passive)"
+						template="tid_Process_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1003"
+						symbol="FileWriteBlock_Enforced"
+						version="1"
+						task="Enforce"
+						level="win:Warning"
+						
+						message="$(string.FileWriteBlock.Enforced)"
+						template="tid_File_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1004"
+						symbol="FileWriteBlock_Passive"
+						version="1"
+						task="Passive"
+						level="win:Warning"			
+						
+						message="$(string.FileWriteBlock.Passive)"
+						template="tid_File_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1005"
+						symbol="FileCreateBlock_Enforced"
+						version="1"
+						task="Enforce"
+						level="win:Warning"
+						
+						message="$(string.FileCreateBlock.Enforced)"
+						template="tid_File_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1006"	
+						symbol="FileCreateBlock_Passive"
+						version="1"
+						task="Passive"
+						level="win:Warning"
+
+						message="$(string.FileCreateBlock.Passive)"
+						template="tid_File_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1007"
+						symbol="RegSetValueBlock_Enforced"
+						version="1"
+						task="Enforce"
+						level="win:Warning"
+						
+						message="$(string.RegSetValueBlock.Enforced)"
+						template="tid_Reg_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1009"
+						symbol="RegSetValueBlock_Passive"
+						version="1"
+						task="Passive"
+						level="win:Warning"
+
+						message="$(string.RegSetValueBlock.Passive)"
+						template="tid_Reg_Block"
+						channel="w3wprotect"
+              />
+					<event
+						value="1100"
+						symbol="W3WProtect_Load"
+						version="1"
+						level="win:Informational"
+						message="$(string.Module.Load)"
+						channel="w3wprotect"
+			  />
+					<event
+						value="1101"
+						symbol="W3WProtect_Unload"
+						version="1"
+						level="win:Informational"
+						message="$(string.Module.Unload)"
+						channel="w3wprotect"
+			  />
+					<event
+						value="1102"
+						symbol="W3WProtect_Config_Updated"
+						version="1"
+						level="win:Informational"
+						message="$(string.Config.Updated)"
+						channel="w3wprotect"
+			  />
+					<event
+						value="1103"
+						symbol="W3WProtect_Config_FailedToLoad"
+						version="1"
+						level="win:Error"
+						message="$(string.Config.FailedToLoad)"
+						channel="w3wprotect"
+			  />
+				</events>
+			</provider>
+		</events>
+	</instrumentation>
+	<localization xmlns="http://schemas.microsoft.com/win/2004/08/events">
+		<resources culture="en-US">
+			<stringTable>
+				<string
+					id="Name"
+					value="W3WProtect"
+					/>
+				<string
+					id="Task.Enforce"
+					value="The task has been enforced."
+					/>
+				<string
+					id="Task.Passive"
+					value="The task is set to passive, and no action was taken."
+					/>
+				<string
+					id="ProcessCreationBlocked.Enforced"
+					value="W3WProtect blocked the process %2 with PID %1 from spawning. Command Line: %4"
+            />
+				<string
+					id="ProcessCreationBlocked.Passive"
+					value="W3WProtect would have blocked the process %2 with PID %1 from spawning but it is in passive mode. Command Line: %4"
+					
+			/><string
+					id="FileWriteBlock.Enforced"
+					value="W3WProtect prevented w3wp.exe from writing to the file %2 in Directory %3."
+            />
+				<string
+					id="FileWriteBlock.Passive"
+					value="W3WProtect would have prevented w3wp.exe from writing to the %2 in Directory %3 but it is in passive mode."
+            />
+				<string
+					id="FileCreateBlock.Enforced"
+					value="W3WProtect prevented w3wp.exe from creating the file %2 in Directory %3."
+            />
+				<string
+					id="FileCreateBlock.Passive"
+					value="W3WProtect would have prevented w3wp.exe from creating the file %2 in Directory %3 but it is in passive mode."
+            />
+				<string
+					id="RegSetValueBlock.Enforced"
+					value="W3WProtect prevented w3wp.exe from writing to %1."
+			/>
+				<string
+					id="RegSetValueBlock.Passive"
+					value="W3WProtect would have prevented w3wp.exe from writing to %1."
+			/>
+				<string
+					id="Module.Load"
+					value="W3WProtect had successfully loaded."
+			/>
+				<string
+					id="Module.Unload"
+					value="W3WProtect has been unloaded."
+			/>
+				<string
+					id="Config.Updated"
+					value="W3WProtect has updated its config"
+			/>
+				<string
+					id="Config.FailedToLoad"
+					value="W3WProtect was unable to update its config."
+			/>
+			</stringTable>
+		</resources>
+	</localization>
+</instrumentationManifest>
