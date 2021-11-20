@@ -10,6 +10,8 @@ During my time as an incident responder, IIS exploitation was the cause of most 
 
 W3WProtect is a PoC that aims prevent exploitation by enforcing a whitelist around those three interactions. Specifically, we're able to enforce what processes, files and registry keys `w3wp.exe` can interact with. If it tries to do something it should, prevent it and write a log. 
 
+You can find a blog overview of W3WProtect here: https://bmcder.com/blog/w3wprotect
+
 A few features of W3WProtect:
 
     - Registry based config, with real-time updating. 
